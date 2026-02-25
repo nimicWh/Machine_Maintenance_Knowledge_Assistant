@@ -1,0 +1,17 @@
+# Core LangChain
+langchain==1.2.10
+langchain-community
+langchain-text-splitters
+langchain-ollama
+
+# Vector database
+chromadb
+
+# Environment variables (optional)
+python-dotenv
+
+# Document parsing
+# Only needed if using Unstructured
+unstructured
+"unstructured[pdf]"
+unstructured-inference
