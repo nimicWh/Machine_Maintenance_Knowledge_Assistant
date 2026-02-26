@@ -1,31 +1,107 @@
 import streamlit as st
+import logging
 from rag_local import build_local_rag
 
-st.title("💬 Local RAG Chatbot (Local LLM + Chroma)")
+# --------------------------------------------------
+# Page Config
+# --------------------------------------------------
+st.set_page_config(
+    page_title="💬 Maintenance Assistant",
+    page_icon="🤖",
+    layout="wide"
+)
 
-if "history" not in st.session_state:
-    st.session_state.history = []
+st.title("💬 Maintenance Assistant")
 
-local_rag = build_local_rag()
+# --------------------------------------------------
+# Logging (production safe)
+# --------------------------------------------------
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
-query = st.text_input("Ask about your manuals or domain docs:")
+# --------------------------------------------------
+# Load RAG (cached once per session)
+# --------------------------------------------------
+@st.cache_resource(show_spinner="Loading knowledge base...")
+def load_rag():
+    return build_local_rag()
 
-if st.button("Ask"):
-    if query:
-        result = local_rag({"question": query, "chat_history": st.session_state.history})
-        answer = result["answer"]
+local_rag = load_rag()
 
-        st.session_state.history.append((query, answer))
+# --------------------------------------------------
+# Session State
+# --------------------------------------------------
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-        st.write("**Answer:**", answer)
+if "sources" not in st.session_state:
+    st.session_state.sources = []
 
-        if "source_documents" in result:
-            st.write("📑 *Relevant Context:*")
-            for doc in result["source_documents"]:
-                st.write("-", doc.page_content[:200], "...")
+# --------------------------------------------------
+# Sidebar
+# --------------------------------------------------
+with st.sidebar:
+    st.header("⚙️ Controls")
 
-if st.session_state.history:
-    st.write("### Conversation History")
-    for i, (q, a) in enumerate(st.session_state.history):
-        st.write(f"**Q{i+1}:** {q}")
-        st.write(f"**A{i+1}:** {a}")
+    if st.button("🗑 Clear Chat"):
+        st.session_state.messages = []
+        st.session_state.sources = []
+        st.rerun()
+
+    st.divider()
+    st.caption("RAG Status: ✅ Ready")
+
+# --------------------------------------------------
+# Render Chat History
+# --------------------------------------------------
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+
+# --------------------------------------------------
+# User Input
+# --------------------------------------------------
+query = st.chat_input("Ask about your manuals or domain docs...")
+
+if query:
+    # Add user message immediately
+    st.session_state.messages.append(
+        {"role": "user", "content": query}
+    )
+
+    try:
+        with st.chat_message("assistant"):
+            response_placeholder = st.empty()
+
+            # Call structured RAG
+            result = local_rag.invoke({"question": query})
+
+            answer = result["answer"]
+            sources = result.get("sources", [])
+
+            response_placeholder.markdown(answer)
+
+        # Save assistant message
+        st.session_state.messages.append(
+            {"role": "assistant", "content": answer}
+        )
+
+        # Save sources separately
+        st.session_state.sources = sources
+
+        # Rerun for clean state rendering
+        st.rerun()
+
+    except Exception as e:
+        logging.exception("RAG error")
+        st.error("⚠️ Something went wrong while generating the response.")
+
+# --------------------------------------------------
+# Sources Panel
+# --------------------------------------------------
+if st.session_state.sources:
+    with st.expander("📚 Sources & Retrieved Documents", expanded=False):
+        for i, source in enumerate(st.session_state.sources, 1):
+            st.markdown(f"**Source {i}:** {source}")
