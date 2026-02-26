@@ -1,3 +1,4 @@
+# Builds local vector database from documents.
 import os
 import uuid
 import chromadb
