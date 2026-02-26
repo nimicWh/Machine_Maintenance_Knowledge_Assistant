@@ -6,5 +6,21 @@ Uses Retrieval-Augmented Generation system that ingests documents (PDFs, manuals
 ```bash
 1) pip install langchain langchain-chroma chromadb langchain-ollama streamlit python-dotenv pypdf
 
-2) ollama pull llama3.1:8b
+2) ollama pull llama![knassist](https://github.com/user-attachments/assets/8cbb6e72-22ff-4efe-b239-851532caf707)
+3.1:8b
    ollama pull nomic-embed-text:latest
+```
+### The Assistant
+1) E.g. asked Assistant on the avaliability of diagnostic features. Using human query.
+   
+![knassist](https://github.com/user-attachments/assets/ee8aa024-b6a5-4749-8ee0-9df642d42e45)
+
+2) E.g. asked Assistant to do fault explanation.
+
+![knassist2](https://github.com/user-attachments/assets/e4c7f0fc-b595-46c2-8d2d-e1e955985ad3)
+
+3) Background processes.
+
+   ![knassist3](https://github.com/user-attachments/assets/21dbbdcc-b7ab-4226-a586-525758848ad0)
+
+   
