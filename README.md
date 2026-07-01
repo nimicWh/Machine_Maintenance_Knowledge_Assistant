@@ -19,8 +19,5 @@ Run locally with Ollama. Speed of inference depends on PC hardware.
 
 ![knassist2](https://github.com/user-attachments/assets/e4c7f0fc-b595-46c2-8d2d-e1e955985ad3)
 
-3) Background processes.
-
-   ![knassist3](https://github.com/user-attachments/assets/21dbbdcc-b7ab-4226-a586-525758848ad0)
 
    
