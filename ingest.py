@@ -17,10 +17,6 @@ def ingest_docs(doc_folder="docs", persist_dir="chroma_db"):
     )
     docs = splitter.split_documents(docs)
 
-    embeddings = OllamaEmbeddings(
-        model="nomic-embed-text",
-        base_url="http://localhost:11434"
-    )
 
     client = chromadb.Client(
         Settings(
