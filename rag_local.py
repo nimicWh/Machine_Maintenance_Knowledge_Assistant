@@ -10,10 +10,7 @@ def build_local_rag():
     # --------------------------------------------------
     # Embeddings
     # --------------------------------------------------
-    embeddings = OllamaEmbeddings(
-        model="nomic-embed-text",
-        base_url="http://localhost:11434"
-    )
+   
 
     # --------------------------------------------------
     # Vector Store
@@ -32,34 +29,12 @@ def build_local_rag():
     # --------------------------------------------------
     # LLM
     # --------------------------------------------------
-    llm = ChatOllama(
-        model="llama3.1:8b",
-        base_url="http://localhost:11434",
-        temperature=0,
-    )
+   
 
     # --------------------------------------------------
     # Prompt
     # --------------------------------------------------
-    prompt = ChatPromptTemplate.from_template(
-        """You are a technical maintenance assistant.
-
-Use ONLY the provided context from the docs folder.
-
-If the answer is not available in the context, say:
-"I cannot find this information in the provided documents."
-
-Be concise and precise.
-
-Context:
-{context}
-
-Question:
-{question}
-
-Answer:
-"""
-    )
+    
 
     # --------------------------------------------------
     # Format Documents
