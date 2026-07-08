@@ -5,12 +5,7 @@ Run locally (local LLM). Speed of inference depends on PC hardware.
 
 Status: On going development
 
-## Prerequiste
-```bash
-1) pip install langchain langchain-chroma chromadb langchain-ollama streamlit python-dotenv pypdf
 
-2) ollama pull llama3.1:8b
-   ollama pull nomic-embed-text:latest
 ```
 ### The Assistant
 1) E.g. asked Assistant on the avaliability of diagnostic features. Using human query.
