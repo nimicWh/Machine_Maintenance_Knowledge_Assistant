@@ -1,12 +1,11 @@
 # Machine_Maintenance_Knowledge_Assistant
 An AI powered knowledge assistant for machine maintenance. Uses machine manuals.
 Uses Retrieval-Augmented Generation system that ingests documents (PDFs, manuals) and lets you query them.
-Run locally (local LLM). Speed of inference depends on PC hardware.
+Run locally with Ollama. Speed of inference depends on PC hardware.
 
 Status: On going development
 
 
-```
 ### The Assistant
 1) E.g. asked Assistant on the avaliability of diagnostic features. Using human query.
    
