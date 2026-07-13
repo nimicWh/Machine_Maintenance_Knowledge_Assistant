@@ -3,6 +3,14 @@ An AI powered knowledge assistant for machine maintenance. Uses machine manuals.
 Uses Retrieval-Augmented Generation system that ingests documents (PDFs, manuals) and lets you query them.
 Run locally. Speed of inference depends on PC hardware.
 
+<p align="center">
+<img src="https://img.shields.io/badge/Status-Active%20Development-success" />
+<img src="https://img.shields.io/badge/Python-3.x-blue" />
+<img src="https://img.shields.io/badge/GUI-PySide6-green" />
+<img src="https://img.shields.io/badge/Simulation-Physics%20Based-orange" />
+<img src="https://img.shields.io/badge/License-Closed%20Source-red" />
+</p>
+
 Status: On going development
 
 
